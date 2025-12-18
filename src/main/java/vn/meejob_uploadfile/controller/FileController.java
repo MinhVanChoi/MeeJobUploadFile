@@ -73,7 +73,7 @@ public class FileController {
                 .collect(Collectors.toList());
     }
 
-    // -------- DOWNLOAD FILE --------
+  // -------- DOWNLOAD FILE --------
     @Operation(
             summary = "Tải file theo tên",
             description = "Trả về file dưới dạng tài nguyên (Resource) để tải về",
@@ -106,4 +106,38 @@ public class FileController {
                         "attachment; filename=\"" + resource.getFilename() + "\"")
                 .body(resource);
     }
+
+
+    @Operation(
+            summary = "Xem file (hiển thị trên browser)",
+            description = "Trả về file để hiển thị trực tiếp thay vì download",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Xem file thành công"),
+                    @ApiResponse(responseCode = "404", description = "Không tìm thấy file")
+            }
+    )
+    @GetMapping("/view/{fileName:.+}")
+    public ResponseEntity<Resource> viewFile(@PathVariable String fileName, HttpServletRequest request) {
+        // Load file as Resource
+        Resource resource = fileStorageService.loadFileAsResource(fileName);
+
+        // Determine content type
+        String contentType = null;
+        try {
+            contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
+        } catch (IOException ex) {
+            logger.info("Could not determine file type.");
+        }
+
+        if (contentType == null) {
+            contentType = "application/octet-stream";
+        }
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(contentType))
+                .header(HttpHeaders.CONTENT_DISPOSITION,
+                        "inline; filename=\"" + resource.getFilename() + "\"") // ← inline thay vì attachment
+                .body(resource);
+    }
+
 }

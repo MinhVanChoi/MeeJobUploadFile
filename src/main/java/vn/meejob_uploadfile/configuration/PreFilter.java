@@ -22,7 +22,7 @@
     @Component
     @Slf4j
     @RequiredArgsConstructor
-    public class PreFilter extends OncePerRequestFilter {
+    public class    PreFilter extends OncePerRequestFilter {
 
         private final JwtService jwtService;
         private final RedisService redisService;
