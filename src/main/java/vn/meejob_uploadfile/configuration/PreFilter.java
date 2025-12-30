@@ -42,6 +42,11 @@
                 return;
             }
 
+            if (path.startsWith("/api/compile-tex")) {
+                filterChain.doFilter(request, response);
+                return;
+            }
+
             if (StringUtils.isBlank(authHeader) || !authHeader.startsWith("Bearer ")) {
                 filterChain.doFilter(request, response);
                 return;

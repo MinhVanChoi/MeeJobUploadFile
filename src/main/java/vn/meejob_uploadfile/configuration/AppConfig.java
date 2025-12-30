@@ -31,7 +31,7 @@ public class AppConfig {
     private final PreFilter preFilter;
 
     // Các endpoint không cần JWT
-    private final String[] WHITE_LIST = {"/auth/**", "/api/files/**"};
+    private final String[] WHITE_LIST = {"/auth/**", "/api/files/**", "/api/compile-tex/**"};
 
     @Bean
     public WebMvcConfigurer corsConfigurer() {
