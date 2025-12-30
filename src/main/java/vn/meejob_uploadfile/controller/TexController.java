@@ -71,7 +71,7 @@ public class TexController {
         Files.move(pdfSource, pdfTarget, StandardCopyOption.REPLACE_EXISTING);
         
         // 4. trả URL
-        String pdfUrl = "http://localhost:8081/api/files/view/" + fileId + ".pdf";
+        String pdfUrl = "http://localhost:8080/api/files/view/" + fileId + ".pdf";
 
         Map<String, String> response = new HashMap<>();
         response.put("pdfUrl", pdfUrl);
