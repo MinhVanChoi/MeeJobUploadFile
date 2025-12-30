@@ -70,8 +70,9 @@ public class TexController {
         Path pdfTarget = PDF_ROOT.resolve(fileId + ".pdf");
         Files.move(pdfSource, pdfTarget, StandardCopyOption.REPLACE_EXISTING);
         
-        // 4. trả URL
-        String pdfUrl = "http://localhost:8080/api/files/view/" + fileId + ".pdf";
+        // 4. trả URL https://meejobuploadfile.onrender.com
+        //String pdfUrl = "http://localhost:8080/api/files/view/" + fileId + ".pdf";
+		String pdfUrl = "https://meejobuploadfile.onrender.com/api/files/view/" + fileId + ".pdf";
 
         Map<String, String> response = new HashMap<>();
         response.put("pdfUrl", pdfUrl);
